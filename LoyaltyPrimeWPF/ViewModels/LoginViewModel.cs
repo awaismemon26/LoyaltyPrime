@@ -116,7 +116,7 @@ namespace LoyaltyPrimeWPF.ViewModels
                 //Capture more information about the user
                 await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
-                await _events.PublishOnUIThreadAsync(new LoginEvent());
+                _events.PublishOnUIThread(new LoginEvent());
             }
             catch (System.Exception ex)
             {

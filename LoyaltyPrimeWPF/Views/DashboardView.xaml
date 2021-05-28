@@ -7,6 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25">This is Dashbaord</TextBlock>
+        <TabControl x:Name="Tab">
+            <TabItem x:Name="Dashboard" Header="Dashboard"></TabItem>
+            <TabItem x:Name="Members" Header="Members"></TabItem>
+            <TabItem x:Name="Accounts" Header="Accounts"></TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
