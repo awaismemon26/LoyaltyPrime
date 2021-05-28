@@ -14,5 +14,19 @@ namespace LoyaltyPrimeUI.Library.Models
         public bool Status { get; set; }
 
         public List<MemberAccountModel> AcccountList { get; set; }
+
+        public string DisplayText
+        {
+            get
+            {
+                if (Status) {
+                    //return $"{Name} - {Environment.NewLine} \t {String.Join($"{Environment.NewLine} \t", AcccountList.Select(a => a.Name).ToArray())} - ";
+                    return $"{Name}";
+                }
+                else { return null; }
+            }
+        
+        }
+
     }
 }

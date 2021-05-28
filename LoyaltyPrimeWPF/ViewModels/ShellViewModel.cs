@@ -16,17 +16,15 @@ namespace LoyaltyPrimeWPF.ViewModels
         private DashboardViewModel _dashboardVM;
         private IEventAggregator _events;
         private SimpleContainer _container;
-        private LoginViewModel _loginVM;
 
-        public ShellViewModel(LoginViewModel loginVM, DashboardViewModel dashboardVM, IEventAggregator events, SimpleContainer container)
+        public ShellViewModel(DashboardViewModel dashboardVM, IEventAggregator events, SimpleContainer container)
         {
             _events = events;
             _container = container;
             _dashboardVM = dashboardVM;
-            _loginVM = loginVM;
             _events.Subscribe(this);
 
-            ActivateItem(_loginVM);
+            ActivateItem(_container.GetInstance<LoginViewModel>());
         }
 
         public void Handle(LoginEvent message)
