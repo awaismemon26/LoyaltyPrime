@@ -34,8 +34,8 @@ namespace LoyaltyPrimeWPF
         //where does container know what to connect to what
         protected override void Configure()
         {
-            //_container.Instance(_container)
-            //    .PerRequest<ITodoEndpoint, TodoEndpoint>();
+            _container.Instance(_container)
+                .PerRequest<IMemberEndPoint, MemberEndPoint>();
 
             _container
                 .Singleton<IWindowManager, WindowManager>()

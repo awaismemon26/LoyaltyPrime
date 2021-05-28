@@ -9,7 +9,15 @@
     <Grid>
         <TabControl x:Name="Tab">
             <TabItem x:Name="Dashboard" Header="Dashboard"></TabItem>
-            <TabItem x:Name="Members" Header="Members"></TabItem>
+            <TabItem x:Name="Members" Header="Members">
+
+                <StackPanel>
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Left" MinWidth="100" Margin="10">Create Member</Button>
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Left" MinWidth="100" Margin="10">Delete Member</Button>
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Left" MinWidth="100" Margin="10">Delete Member</Button>
+                </StackPanel>
+
+            </TabItem>
             <TabItem x:Name="Accounts" Header="Accounts"></TabItem>
         </TabControl>
     </Grid>
