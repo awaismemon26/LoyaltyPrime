@@ -90,5 +90,8 @@
         <ComboBox x:Name="MemberComboBox" SelectedValue="{Binding MemberComboBoxSelected, Mode=TwoWay}" SelectedValuePath="Name" ItemsSource="{Binding MemberComboBox}" DisplayMemberPath="Name"  Grid.Row="6" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"></ComboBox>
         <Button x:Name="AccountSubmit" Grid.Column="3" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right" MinWidth="100" Margin="0,18,5,18">Submit</Button>
 
+        
+        <!--Export Members-->
+        <Button x:Name="ExportMembers" Grid.Row="0" Margin="10" Grid.Column="5">Export Members</Button>
     </Grid>
 </UserControl>

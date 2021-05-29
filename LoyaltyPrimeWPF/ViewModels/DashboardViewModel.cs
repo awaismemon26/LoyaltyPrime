@@ -3,12 +3,16 @@
 using LoyaltyPrimeUI.Library.Api;
 using LoyaltyPrimeUI.Library.Models;
 
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace LoyaltyPrimeWPF.ViewModels
 {
@@ -80,7 +84,7 @@ namespace LoyaltyPrimeWPF.ViewModels
                 NotifyOfPropertyChange(() => MemberComboBoxSelected);
                 NotifyOfPropertyChange(() => CanAccountSubmit);
             }
-        }
+        } 
 
 
         private BindingList<MemberModel> _members = new BindingList<MemberModel>();
@@ -147,13 +151,15 @@ namespace LoyaltyPrimeWPF.ViewModels
             memberAccount.Balance = AccountBalanceTxtBox;
             memberAccount.Status = true;
 
-            Members.Where(x => x.Name == MemberComboBoxSelected).FirstOrDefault().AccountList.Add(memberAccount);
-            Members.ListChanged += Members_ListChanged;
+            MemberModel member = Members.Where(x => x.Name == MemberComboBoxSelected).FirstOrDefault();
+            member.AccountList.Add(memberAccount);
+            Members.Add(member);
+            Members.Remove(Members.Where(x => x.Name == MemberComboBoxSelected).FirstOrDefault());
         }
-
-        private void Members_ListChanged(object sender, ListChangedEventArgs e)
+        public void ExportMembers()
         {
-            throw new NotImplementedException();
+            var json = JsonConvert.SerializeObject(Members, Formatting.Indented);
+            File.WriteAllText("Members.json", json);
         }
     }
 }
