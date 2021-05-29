@@ -13,6 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyaltyPrimeUI.Library", "L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyaltyPrimeWPF", "LoyaltyPrimeWPF\LoyaltyPrimeWPF.csproj", "{662CA2F6-47D2-47EB-89BD-49DEA586AC22}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1D1DCA1C-10EF-4B89-B924-5B52F736C5B1}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{3E40B551-70D3-4B10-8E3B-BD73A83131A0}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Pictures\StartupProjects.png = ..\..\..\..\Pictures\StartupProjects.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +52,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3E40B551-70D3-4B10-8E3B-BD73A83131A0} = {1D1DCA1C-10EF-4B89-B924-5B52F736C5B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F178A98-698C-4D7C-8268-F6388273E09E}
