@@ -4,16 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LoyaltyPrimeWPF.Views"
+             xmlns:models="clr-namespace:LoyaltyPrimeUI.Library.Models;assembly=LoyaltyPrimeUI.Library"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"></ColumnDefinition>
-            <ColumnDefinition Width="23*"></ColumnDefinition>
-            <ColumnDefinition Width="30*"></ColumnDefinition>
-            <ColumnDefinition Width="67*"></ColumnDefinition>
-            <ColumnDefinition Width="40*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -25,46 +27,68 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="Members" Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Height="20" Width="62"></TextBlock>
-        <ListBox Margin="5,20,5,5" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="2"  ItemsSource="{Binding Members}">
+        
+        <!--Members Information-->
+        <TextBlock Text="Members" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Height="20" Width="62"></TextBlock>
+        <!--<ListBox Margin="5,20,5,5" Grid.RowSpan="3" Grid.ColumnSpan="2"  ItemsSource="{Binding Members}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DisplayText}"></TextBlock>
+                    --><!--<TextBlock Text="{Binding Name}"></TextBlock>--><!--
+                    <ListBox ItemsSource="{Binding AccountList}" DisplayMemberPath="Name">
+                        
+                    </ListBox>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>-->
+        <TreeView ItemsSource="{Binding Members}" Margin="5,20,5,5" Grid.RowSpan="3" Grid.ColumnSpan="2">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding AccountList}">
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </HierarchicalDataTemplate>
+                
+            </TreeView.ItemTemplate>
+        </TreeView>
+
+        <!--<TreeView Margin="5,20,5,5" Grid.RowSpan="3" Grid.ColumnSpan="2">
+            <TreeViewItem Header="level0">
+                <TextBlock Text="level1"></TextBlock>
+            </TreeViewItem>
+            <TreeViewItem Header="level0">
+                <TextBlock Text="level1"></TextBlock>
+            </TreeViewItem>
+        </TreeView>-->
+        
+        <!--<TreeView Margin="5,20,5,5" Grid.RowSpan="3" Grid.ColumnSpan="2" ItemsSource="{Binding Members}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding AccountList}" DataType="{x:Type models:MemberModel}">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>-->
         
         <!--Add Member-->
-        <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Text="Add Member" FontSize="15" Height="20" Width="88"/>
-        <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Text="Name" Margin="0,18" Height="20" Width="40"></TextBlock>
-        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="NameTxtBox" Grid.Row="4" Grid.Column="2" Margin="5,26,5,12" Height="18"></TextBox>
-        <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Text="Address" Margin="0,18" Height="20" Width="53"></TextBlock>
-        <TextBox VerticalAlignment="Stretch" x:Name="AddressTxtBox" Grid.Row="5" Grid.Column="2" Margin="5,20,5,5"></TextBox>
-        <Button x:Name="Submit" Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" MinWidth="100" Margin="0,18,5,18" Height="20" Width="100">Submit</Button>
+        <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Text="Add Member" FontSize="15" Height="20" Width="88"/>
+        <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Name" Margin="0,18" Height="20" Width="40"></TextBlock>
+        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="NameTxtBox" Grid.Row="4" Grid.Column="1" Margin="5,26,5,12"></TextBox>
+        <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Address" Margin="0,18" Width="53"></TextBlock>
+        <TextBox VerticalAlignment="Center" x:Name="AddressTxtBox" HorizontalAlignment="Stretch"  Grid.Row="5" Grid.Column="1" Margin="5,20,5,5"></TextBox>
+        <Button x:Name="Submit" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" MinWidth="100" Margin="0,18,5,18" Height="20" Width="100">Submit</Button>
 
 
-        <!--<TabControl x:Name="TabControl">
-            <TabItem x:Name="Dashboard" Header="Dashboard"></TabItem>
-            <TabItem x:Name="Members" Header="Members">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
+        <!--Add Account-->
+        <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2" Text="Add Account" FontSize="15"/>
+        <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Text="Name" Margin="0,18" ></TextBlock>
+        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="AccountNameTxtBox" Grid.Row="4" Grid.Column="3" Margin="5,26,5,12"></TextBox>
+        <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Text="Balance" Margin="0,18"></TextBlock>
+        <TextBox VerticalAlignment="Center" x:Name="AccountBalanceTxtBox" Grid.Row="5" Grid.Column="3" Margin="5,20,5,5"></TextBox>
+        <TextBlock Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Text="Member" Margin="0,18"></TextBlock>
+        <ComboBox x:Name="MemberComboBox" SelectedValue="{Binding MemberComboBoxSelected, Mode=TwoWay}" SelectedValuePath="Name" ItemsSource="{Binding MemberComboBox}" DisplayMemberPath="Name"  Grid.Row="6" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"></ComboBox>
+        <Button x:Name="AccountSubmit" Grid.Column="3" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right" MinWidth="100" Margin="0,18,5,18">Submit</Button>
 
-                    <TextBlock Text="Hello from Members" FontSize="24" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                    
-                </Grid>
-
-            </TabItem>
-            <TabItem x:Name="Accounts" Header="Accounts"></TabItem>
-        </TabControl>-->
     </Grid>
 </UserControl>

@@ -38,6 +38,49 @@ namespace LoyaltyPrimeWPF.ViewModels
                 NotifyOfPropertyChange(() => AddressTxtBox); 
                 NotifyOfPropertyChange(() => CanSubmit); }
         }
+        private string _AccountNameTxtBox;
+
+        public string AccountNameTxtBox
+        {
+            get { return _AccountNameTxtBox; }
+            set { _AccountNameTxtBox = value; 
+                NotifyOfPropertyChange(() => AccountNameTxtBox);
+                NotifyOfPropertyChange(() => CanAccountSubmit);
+            }
+        }
+
+        private double _AccountBalanceTxtBox;
+
+        public double AccountBalanceTxtBox
+        {
+            get { return _AccountBalanceTxtBox; }
+            set { _AccountBalanceTxtBox = value; 
+                NotifyOfPropertyChange(() => AccountBalanceTxtBox);
+                NotifyOfPropertyChange(() => CanAccountSubmit);
+            }
+        }
+
+
+        private BindingList<MemberModel> _MemberComboBox = new BindingList<MemberModel>();
+        public BindingList<MemberModel> MemberComboBox
+        {
+            get { return _MemberComboBox; }
+            set { _MemberComboBox = value; 
+                NotifyOfPropertyChange(() => MemberComboBox);
+                NotifyOfPropertyChange(() => CanAccountSubmit);
+            }
+        }
+
+        private string _MemberComboBoxSelected;
+
+        public string MemberComboBoxSelected
+        {
+            get { return _MemberComboBoxSelected; }
+            set { _MemberComboBoxSelected = value; 
+                NotifyOfPropertyChange(() => MemberComboBoxSelected);
+                NotifyOfPropertyChange(() => CanAccountSubmit);
+            }
+        }
 
 
         private BindingList<MemberModel> _members = new BindingList<MemberModel>();
@@ -57,6 +100,7 @@ namespace LoyaltyPrimeWPF.ViewModels
         {
             List<MemberModel> list = await _memberEndpoint.GetAllAsync();
             Members = new BindingList<MemberModel>(list);
+            MemberComboBox = new BindingList<MemberModel>(list);
         }
 
         public bool CanSubmit 
@@ -73,6 +117,20 @@ namespace LoyaltyPrimeWPF.ViewModels
                 return output;
             }
         }
+        public bool CanAccountSubmit
+        {
+            get
+            {
+                bool output = false;
+
+                if (!string.IsNullOrEmpty(AccountNameTxtBox) && AccountBalanceTxtBox != 0 && !string.IsNullOrEmpty(MemberComboBoxSelected))
+                {
+                    output = true;
+                }
+
+                return output;
+            }
+        }
 
         public void Submit()
         {
@@ -82,6 +140,20 @@ namespace LoyaltyPrimeWPF.ViewModels
             member.Status = true;
             Members.Add(member);
         }
+        public void AccountSubmit()
+        {
+            MemberAccountModel memberAccount = new MemberAccountModel();
+            memberAccount.Name = AccountNameTxtBox;
+            memberAccount.Balance = AccountBalanceTxtBox;
+            memberAccount.Status = true;
 
+            Members.Where(x => x.Name == MemberComboBoxSelected).FirstOrDefault().AccountList.Add(memberAccount);
+            Members.ListChanged += Members_ListChanged;
+        }
+
+        private void Members_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

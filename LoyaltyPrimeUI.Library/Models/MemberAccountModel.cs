@@ -12,5 +12,7 @@ namespace LoyaltyPrimeUI.Library.Models
         public string Name { get; set; }
         public double Balance { get; set; }
         public bool Status { get; set; }
+
+       
     }
 }

@@ -13,7 +13,8 @@ namespace LoyaltyPrimeUI.Library.Models
         public string Address { get; set; }
         public bool Status { get; set; }
 
-        public List<MemberAccountModel> AcccountList { get; set; }
+        public List<MemberAccountModel> AccountList { get; set; }
+
 
         public string DisplayText
         {
