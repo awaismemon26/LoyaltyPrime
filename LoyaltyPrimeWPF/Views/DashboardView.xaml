@@ -36,9 +36,9 @@
         
         <!--Members Information-->
         <TextBlock Text="Members" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Height="20" Width="62"></TextBlock>
-        <TreeView ItemsSource="{Binding Members}" ItemContainerStyle="{StaticResource TheStyle}" Margin="5,20,5,25" Grid.RowSpan="4" Grid.ColumnSpan="3">
+        <TreeView x:Name="MembersTree" ItemsSource="{Binding Members}" ItemContainerStyle="{StaticResource TheStyle}" Margin="5,20,5,25" Grid.RowSpan="4" Grid.ColumnSpan="3">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding AccountList}">
+                <HierarchicalDataTemplate ItemsSource="{Binding Accounts}">
                     <TextBlock Text="{Binding DisplayText}"></TextBlock>
                 </HierarchicalDataTemplate>
                 
@@ -51,7 +51,7 @@
         <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="NameTxtBox" Grid.Row="4" Grid.Column="1"></TextBox>
         <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Address: "></TextBlock>
         <TextBox VerticalAlignment="Center" x:Name="AddressTxtBox" HorizontalAlignment="Stretch"  Grid.Row="5" Grid.Column="1"></TextBox>
-        <Button x:Name="Submit" Grid.Column="1" Grid.Row="6" VerticalAlignment="Top" HorizontalAlignment="Right" MinWidth="100">Submit</Button>
+        <Button x:Name="MemberSubmit" Grid.Column="1" Grid.Row="6" VerticalAlignment="Top" HorizontalAlignment="Right" MinWidth="100">Submit</Button>
 
 
         <!--Add Account-->
@@ -67,9 +67,23 @@
         
         <!--Export Members-->
         <Button x:Name="ExportMembers" Grid.Row="0" Margin="10" Grid.Column="5">Export Members</Button>
+        <GroupBox Header="Export Criteria" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Margin="5,20,0,0" Grid.RowSpan="2">
+            <StackPanel>
+                <RadioButton IsChecked="{Binding ExtractAllMembers}" Content="All Members"></RadioButton>
+                <RadioButton IsChecked="{Binding ExtractMoreThan50}" Content="Members with more than 50 points"></RadioButton>
+                <RadioButton IsChecked="{Binding ExtractLessThan50}" Content="Members with less than 50 points"></RadioButton>
+                <RadioButton IsChecked="{Binding ExtractInactive}" Content="Inactive accounts"></RadioButton>
+                <RadioButton IsChecked="{Binding ExtractInactiveMoreThan10}" Content="Inactive accounts with more than 10 points"></RadioButton>
+                
+            </StackPanel>
+        </GroupBox>
+        
+        
 
         <!--Import Members-->
         <Button x:Name="ImportMembers" Grid.Row="1" Margin="10" Grid.Column="5">Import Members</Button>
-
+        
+        <!--Deactivate Account-->
+        <!--<Button x:Name="DeactivateAccount" Grid.Row="0" Grid.Column="3" Margin="10" VerticalAlignment="Bottom">Deactivate Account</Button>-->
     </Grid>
 </UserControl>

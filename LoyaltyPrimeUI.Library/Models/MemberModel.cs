@@ -11,7 +11,6 @@ namespace LoyaltyPrimeUI.Library.Models
     [JsonObject(MemberSerialization.OptIn)]
     public class MemberModel
     {
-        [JsonProperty]
         public int Id { get; set; }
         [JsonProperty]
         public string Name { get; set; }
@@ -20,7 +19,7 @@ namespace LoyaltyPrimeUI.Library.Models
         public bool Status { get; set; }
 
         [JsonProperty]
-        public List<MemberAccountModel> AccountList { get; set; } = new List<MemberAccountModel>();
+        public List<MemberAccountModel> Accounts { get; set; } = new List<MemberAccountModel>();
 
 
         public string DisplayText

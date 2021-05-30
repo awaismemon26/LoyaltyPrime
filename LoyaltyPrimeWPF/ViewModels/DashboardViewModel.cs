@@ -24,14 +24,17 @@ namespace LoyaltyPrimeWPF.ViewModels
         {
             _memberEndpoint = memberEndPoint;
         }
-        private string _NameTxtBox;
 
+        #region PROPERTIES
+
+        
+        private string _NameTxtBox;
         public string NameTxtBox
         {
             get { return _NameTxtBox; }
             set { _NameTxtBox = value; 
                 NotifyOfPropertyChange(() => NameTxtBox); 
-                NotifyOfPropertyChange(() => CanSubmit); }
+                NotifyOfPropertyChange(() => CanMemberSubmit); }
         }
         private string _AddressTxtBox;
 
@@ -41,7 +44,7 @@ namespace LoyaltyPrimeWPF.ViewModels
             set { 
                 _AddressTxtBox = value; 
                 NotifyOfPropertyChange(() => AddressTxtBox); 
-                NotifyOfPropertyChange(() => CanSubmit); }
+                NotifyOfPropertyChange(() => CanMemberSubmit); }
         }
         private string _AccountNameTxtBox;
 
@@ -73,7 +76,41 @@ namespace LoyaltyPrimeWPF.ViewModels
                 NotifyOfPropertyChange(() => MemberComboBoxSelected);
                 NotifyOfPropertyChange(() => CanAccountSubmit);
             }
-        } 
+        }
+
+        private bool _ExtractMoreThan50;
+        public bool ExtractMoreThan50
+        {
+            get { return _ExtractMoreThan50; }
+            set { _ExtractMoreThan50 = value; NotifyOfPropertyChange(() => ExtractMoreThan50); }
+        }
+
+        private bool _ExtractLessThan50;
+        public bool ExtractLessThan50
+        {
+            get { return _ExtractLessThan50; }
+            set { _ExtractLessThan50 = value; NotifyOfPropertyChange(() => ExtractLessThan50); }
+        }
+
+        private bool _ExtractInactive;
+        public bool ExtractInactive
+        {
+            get { return _ExtractInactive; }
+            set { _ExtractInactive = value; NotifyOfPropertyChange(() => ExtractInactive); }
+        }
+
+        private bool _ExtractInactiveMoreThan10;
+        public bool ExtractInactiveMoreThan10
+        {
+            get { return _ExtractInactiveMoreThan10; }
+            set { _ExtractInactiveMoreThan10 = value; NotifyOfPropertyChange(() => ExtractInactiveMoreThan10); }
+        }
+        private bool _ExtractAllMembers;
+        public bool ExtractAllMembers
+        {
+            get { return _ExtractAllMembers; }
+            set { _ExtractAllMembers = value; NotifyOfPropertyChange(() => ExtractAllMembers); }
+        }
 
 
         private BindingList<MemberModel> _members = new BindingList<MemberModel>();
@@ -84,6 +121,9 @@ namespace LoyaltyPrimeWPF.ViewModels
                 NotifyOfPropertyChange(() => Members);
                 NotifyOfPropertyChange(() => CanAccountSubmit);
             } }
+
+        #endregion
+
 
         protected override async void OnViewLoaded(object view)
         {
@@ -97,7 +137,7 @@ namespace LoyaltyPrimeWPF.ViewModels
             Members = new BindingList<MemberModel>(list);
         }
 
-        public bool CanSubmit 
+        public bool CanMemberSubmit
         { 
             get
             {
@@ -126,7 +166,7 @@ namespace LoyaltyPrimeWPF.ViewModels
             }
         }
 
-        public void Submit()
+        public void MemberSubmit()
         {
             MemberModel member = new MemberModel();
             member.Name = NameTxtBox;
@@ -142,15 +182,44 @@ namespace LoyaltyPrimeWPF.ViewModels
             memberAccount.Balance = AccountBalanceTxtBox;
             memberAccount.Status = true;
 
-            MemberModel member = Members.Where(x => x.Name == MemberComboBoxSelected).FirstOrDefault();
-            member.AccountList.Add(memberAccount);
-            Members.Add(member);
-            Members.Remove(Members.Where(x => x.Name == MemberComboBoxSelected).FirstOrDefault());
+            MemberModel member = Members.FirstOrDefault(x => x.Name == MemberComboBoxSelected);
+
+            if (member.Accounts.Any(x => x.Name.Contains(AccountNameTxtBox)))
+            {
+                member.Accounts.Where(x => x.Status)
+                               .Where(x => x.Name.Contains(AccountNameTxtBox))
+                               .ToList()
+                               .ForEach(y => y.Balance += Convert.ToDouble(AccountBalanceTxtBox));
+                Members.Add(member);
+                Members.Remove(Members.FirstOrDefault(x => x.Name == MemberComboBoxSelected));
+            }
+            else
+            {
+                member.Accounts.Add(memberAccount);
+                Members.Add(member);
+                Members.Remove(Members.FirstOrDefault(x => x.Name == MemberComboBoxSelected));
+            }
         }
         
         public void ExportMembers()
         {
-            var json = JsonConvert.SerializeObject(Members, Formatting.Indented);
+            var _extractMoreThan50 = Members.Select(x => x.Accounts.FindAll(y => y.Balance > 50));
+            var _extractLessThan50 = Members.Select(x => x.Accounts.FindAll(y => y.Balance < 50));
+            var _extractInactive = Members.Select(x => x.Accounts.FindAll(y => y.Status == false));
+            var _extractInactiveMoreThan10 = Members.Select(x => x.Accounts.FindAll(y => y.Status == false && y.Balance > 10));
+
+            string json = "";
+            if (ExtractMoreThan50)
+                json = JsonConvert.SerializeObject(_extractMoreThan50, Formatting.Indented);
+            else if(ExtractLessThan50)
+                json = JsonConvert.SerializeObject(_extractLessThan50, Formatting.Indented);
+            else if(ExtractInactive)
+                json = JsonConvert.SerializeObject(_extractInactive, Formatting.Indented);
+            else if(ExtractInactiveMoreThan10)
+                json = JsonConvert.SerializeObject(_extractInactiveMoreThan10, Formatting.Indented);
+            else
+                json = JsonConvert.SerializeObject(Members, Formatting.Indented);
+
             File.WriteAllText("Members.json", json);
             System.Windows.MessageBox.Show("File exported!");
         }
@@ -175,16 +244,20 @@ namespace LoyaltyPrimeWPF.ViewModels
             };
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var jsonData = File.ReadAllText(openFileDialog.FileName);
-                var importedMembers = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData);
-
-                Members.Clear();
-                foreach (var item in importedMembers)
+                try
                 {
-                    Members.Add(item);
+                    string jsonData = File.ReadAllText(openFileDialog.FileName);
+                    List<MemberModel> importedMembers = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData);
+
+                    Members.Clear();
+                    foreach (var item in importedMembers)
+                    {
+                        Members.Add(item);
+                    }
+                    System.Windows.MessageBox.Show("Members Added", "Import Members", MessageBoxButton.OK);
                 }
-                System.Windows.MessageBox.Show("Members Added", "Import Members", MessageBoxButton.OK);
-            }
+                catch (Exception ex) { System.Windows.MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }
         }
     }
 }
