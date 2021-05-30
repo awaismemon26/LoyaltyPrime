@@ -17,7 +17,7 @@ namespace LoyaltyPrimeUI.Library.Models
         public string Name { get; set; }
         [JsonProperty]
         public string Address { get; set; }
-        
+
         public bool Status { get; set; }
 
         [JsonProperty]
@@ -29,8 +29,7 @@ namespace LoyaltyPrimeUI.Library.Models
             get
             {
                 if (Status) {
-                    //return $"{Name} - {Environment.NewLine} \t {String.Join($"{Environment.NewLine} \t", AcccountList.Select(a => a.Name).ToArray())} - ";
-                    return $"{Name}";
+                    return Name;
                 }
                 else { return null; }
             }

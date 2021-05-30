@@ -20,14 +20,14 @@ namespace LoyaltyPrimeData
         {
             members = new List<Members>()
             {
-                new Members() { Id = 1, Name = "Anakin Skywalker", Address = "Landsberger Straße 110", Status = true, 
+                new Members() { Id = 1, Name = "Anakin Skywalker", Address = "Landsberger Straße 110", 
                                 AccountList = new List<MemberAccounts>() {
 
                                 new MemberAccounts(){ Id = 1, Name = "Burger King", Balance = 10.0, Status = true},
-                                new MemberAccounts(){ Id = 1, Name = "Fitness First", Balance = 150, Status = false}
+                                new MemberAccounts(){ Id = 1, Name = "Fitness First", Balance = 150, Status = true}
 
                                 } },
-                new Members() { Id = 2, Name = "Darth Vader", Address = "Landsberger Straße 110", Status = true,
+                new Members() { Id = 2, Name = "Darth Vader", Address = "Landsberger Straße 110",
                                 AccountList = new List<MemberAccounts>() {
                                 new MemberAccounts(){ Id = 1, Name = "Lufthansa", Balance = 10, Status = true},
                                 } }

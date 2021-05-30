@@ -13,10 +13,11 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace LoyaltyPrimeWPF.ViewModels
 {
-    public class DashboardViewModel : Screen
+    public class DashboardViewModel : Caliburn.Micro.Screen
     {
         private IMemberEndPoint _memberEndpoint;
         public DashboardViewModel(IMemberEndPoint memberEndPoint)
@@ -64,19 +65,7 @@ namespace LoyaltyPrimeWPF.ViewModels
             }
         }
 
-
-        private BindingList<MemberModel> _MemberComboBox = new BindingList<MemberModel>();
-        public BindingList<MemberModel> MemberComboBox
-        {
-            get { return _MemberComboBox; }
-            set { _MemberComboBox = value; 
-                NotifyOfPropertyChange(() => MemberComboBox);
-                NotifyOfPropertyChange(() => CanAccountSubmit);
-            }
-        }
-
         private string _MemberComboBoxSelected;
-
         public string MemberComboBoxSelected
         {
             get { return _MemberComboBoxSelected; }
@@ -91,7 +80,9 @@ namespace LoyaltyPrimeWPF.ViewModels
         public BindingList<MemberModel> Members { 
             get { return _members; } 
             set { 
-                _members = value; NotifyOfPropertyChange(() => Members);
+                _members = value;
+                NotifyOfPropertyChange(() => Members);
+                NotifyOfPropertyChange(() => CanAccountSubmit);
             } }
 
         protected override async void OnViewLoaded(object view)
@@ -104,7 +95,6 @@ namespace LoyaltyPrimeWPF.ViewModels
         {
             List<MemberModel> list = await _memberEndpoint.GetAllAsync();
             Members = new BindingList<MemberModel>(list);
-            MemberComboBox = new BindingList<MemberModel>(list);
         }
 
         public bool CanSubmit 
@@ -144,6 +134,7 @@ namespace LoyaltyPrimeWPF.ViewModels
             member.Status = true;
             Members.Add(member);
         }
+        
         public void AccountSubmit()
         {
             MemberAccountModel memberAccount = new MemberAccountModel();
@@ -156,10 +147,44 @@ namespace LoyaltyPrimeWPF.ViewModels
             Members.Add(member);
             Members.Remove(Members.Where(x => x.Name == MemberComboBoxSelected).FirstOrDefault());
         }
+        
         public void ExportMembers()
         {
             var json = JsonConvert.SerializeObject(Members, Formatting.Indented);
             File.WriteAllText("Members.json", json);
+            System.Windows.MessageBox.Show("File exported!");
+        }
+        
+        public void ImportMembers()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Browse JSON Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "json",
+                Filter = "JSON files (*.json)|*.json",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var jsonData = File.ReadAllText(openFileDialog.FileName);
+                var importedMembers = JsonConvert.DeserializeObject<List<MemberModel>>(jsonData);
+
+                Members.Clear();
+                foreach (var item in importedMembers)
+                {
+                    Members.Add(item);
+                }
+                System.Windows.MessageBox.Show("Members Added", "Import Members", MessageBoxButton.OK);
+            }
         }
     }
 }
