@@ -17,7 +17,6 @@ namespace LoyaltyPrimeUI.Library.Models
         public string Name { get; set; }
         [JsonProperty]
         public string Address { get; set; }
-
         public bool Status { get; set; }
 
         [JsonProperty]
@@ -28,10 +27,7 @@ namespace LoyaltyPrimeUI.Library.Models
         {
             get
             {
-                if (Status) {
-                    return Name;
-                }
-                else { return null; }
+               return Name;
             }
         
         }

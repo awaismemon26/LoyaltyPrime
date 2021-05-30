@@ -39,7 +39,7 @@
         <TreeView ItemsSource="{Binding Members}" ItemContainerStyle="{StaticResource TheStyle}" Margin="5,20,5,25" Grid.RowSpan="4" Grid.ColumnSpan="3">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding AccountList}">
-                    <TextBlock Text="{Binding Name}"></TextBlock>
+                    <TextBlock Text="{Binding DisplayText}"></TextBlock>
                 </HierarchicalDataTemplate>
                 
             </TreeView.ItemTemplate>

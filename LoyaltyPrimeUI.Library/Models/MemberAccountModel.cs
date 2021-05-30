@@ -25,11 +25,7 @@ namespace LoyaltyPrimeUI.Library.Models
         {
             get
             {
-                if (Status)
-                {
-                    return Name;
-                }
-                else { return null; }
+               return $"{Name} \tBalance: {Balance}";
             }
 
         }

@@ -17,7 +17,7 @@ namespace LoyaltyPrimeDataManager.Library.DataAccess
         public List<MemberModel> GetAll()
         {
             Members list = new Members();
-            List<Members> _list = list.GetAll();
+            List<Members> _list = list.GetAll().Where(x => x.Status == true).ToList();
 
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<Members, MemberModel>();

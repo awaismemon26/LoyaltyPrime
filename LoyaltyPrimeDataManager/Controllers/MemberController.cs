@@ -14,7 +14,7 @@ namespace LoyaltyPrimeDataManager.Controllers
     public class MemberController : ApiController
     {
         [HttpGet]
-        public List<MemberModel> GetById()
+        public List<MemberModel> GetAll()
         {
             MemberData members = new MemberData();
             return members.GetAll();
