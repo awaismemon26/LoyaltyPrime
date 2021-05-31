@@ -220,8 +220,19 @@ namespace LoyaltyPrimeWPF.ViewModels
             else
                 json = JsonConvert.SerializeObject(Members, Formatting.Indented);
 
-            File.WriteAllText("Members.json", json);
-            System.Windows.MessageBox.Show("File exported!");
+            SaveFileDialog saveFile = new SaveFileDialog
+            {
+                CheckPathExists = true,
+                OverwritePrompt = true,
+                RestoreDirectory = true,
+                Filter = "JSON files (*.json)|*.json",
+                DefaultExt = "json"
+            };
+            if(saveFile.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText("Members.json", json);
+                System.Windows.MessageBox.Show("File exported!");
+            }
         }
         
         public void ImportMembers()
