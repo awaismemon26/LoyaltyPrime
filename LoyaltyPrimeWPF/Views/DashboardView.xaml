@@ -47,22 +47,24 @@
         
         <!--Add Member-->
         <TextBlock Grid.Row="3" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="Add Member" FontSize="15" Height="20" Width="88"/>
-        <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Name: "></TextBlock>
-        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="NameTxtBox" Grid.Row="4" Grid.Column="1"></TextBox>
-        <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Address: "></TextBlock>
-        <TextBox VerticalAlignment="Center" x:Name="AddressTxtBox" HorizontalAlignment="Stretch"  Grid.Row="5" Grid.Column="1"></TextBox>
+        <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Text="Name: "></TextBlock>
+        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="70,0,0,0" x:Name="NameTxtBox" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="0"></TextBox>
+        <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Address: " Margin="15,0,0,0"></TextBlock>
+        <TextBox VerticalAlignment="Center" x:Name="AddressTxtBox" Margin="70,0,0,0" HorizontalAlignment="Stretch"  Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="0"></TextBox>
         <Button x:Name="MemberSubmit" Grid.Column="1" Grid.Row="6" VerticalAlignment="Top" HorizontalAlignment="Right" MinWidth="100">Submit</Button>
 
 
         <!--Add Account-->
-        <TextBlock Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="2" Text="Add Account" FontSize="15"/>
-        <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Text="Name: " ></TextBlock>
-        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="AccountNameTxtBox" Grid.Row="4" Grid.Column="3"></TextBox>
-        <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Text="Balance: "></TextBlock>
-        <TextBox VerticalAlignment="Center" x:Name="AccountBalanceTxtBox" Grid.Row="5" Grid.Column="3"></TextBox>
-        <TextBlock Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Text="Member: "></TextBlock>
-        <ComboBox x:Name="MemberComboBox" SelectedValue="{Binding MemberComboBoxSelected, Mode=TwoWay}" SelectedValuePath="Name" ItemsSource="{Binding Members}" DisplayMemberPath="Name"  Grid.Row="6" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"></ComboBox>
-        <Button x:Name="AccountSubmit" Grid.Column="3" Grid.Row="7" VerticalAlignment="Top" HorizontalAlignment="Right" MinWidth="100">Submit</Button>
+        <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="3" Text="Add Account" FontSize="15"/>
+        <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="3" Margin="0,0,20,0" Text="Name: " ></TextBlock>
+        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="AccountNameTxtBox" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="4" Margin="0,0,5,0"></TextBox>
+        <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="3" Margin="0,0,20,0" Text="Balance: "></TextBlock>
+        <TextBox VerticalAlignment="Center" x:Name="AccountBalanceTxtBox" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="2" Margin="0,0,5,0"></TextBox>
+        <TextBlock Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Column="3" Text="Member: "></TextBlock>
+        <ComboBox x:Name="MemberComboBox" SelectedValue="{Binding MemberComboBoxSelected, Mode=TwoWay}" SelectedValuePath="Name" 
+                  ItemsSource="{Binding Members}" Grid.ColumnSpan="2" DisplayMemberPath="Name"  Grid.Row="6" Grid.Column="4" 
+                  HorizontalAlignment="Stretch" Margin="0,0,5,0" VerticalAlignment="Center"></ComboBox>
+        <Button x:Name="AccountSubmit" Grid.Column="5" Margin="0,0,5,0" Grid.Row="7" VerticalAlignment="Top" HorizontalAlignment="Right" MinWidth="100">Submit</Button>
 
         
         <!--Export Members-->

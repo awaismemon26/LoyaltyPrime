@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace LoyaltyPrimeData
 {
+    /// <summary>
+    /// Basic Member Data Model imitating database model
+    /// </summary>
     public class Members
     {
         public int Id { get; set; }

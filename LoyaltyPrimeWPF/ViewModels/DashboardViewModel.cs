@@ -20,9 +20,11 @@ namespace LoyaltyPrimeWPF.ViewModels
     public class DashboardViewModel : Caliburn.Micro.Screen
     {
         private IMemberEndPoint _memberEndpoint;
-        public DashboardViewModel(IMemberEndPoint memberEndPoint)
+        private IMemberAccountEndPoint _memberAccountEndpoint;
+        public DashboardViewModel(IMemberEndPoint memberEndPoint, IMemberAccountEndPoint memberAccountEndPoint)
         {
             _memberEndpoint = memberEndPoint;
+            _memberAccountEndpoint = memberAccountEndPoint;
         }
 
         #region PROPERTIES
@@ -134,6 +136,7 @@ namespace LoyaltyPrimeWPF.ViewModels
         public async Task LoadMembers()
         {
             List<MemberModel> list = await _memberEndpoint.GetAllAsync();
+            List<MemberAccountModel> memberAccount = await _memberAccountEndpoint.GetAllAsync();
             Members = new BindingList<MemberModel>(list);
         }
 
@@ -173,6 +176,8 @@ namespace LoyaltyPrimeWPF.ViewModels
             member.Address = AddressTxtBox;
             member.Status = true;
             Members.Add(member);
+
+            // POST updated member to API
         }
         
         public void AccountSubmit()
@@ -199,6 +204,8 @@ namespace LoyaltyPrimeWPF.ViewModels
                 Members.Add(member);
                 Members.Remove(Members.FirstOrDefault(x => x.Name == MemberComboBoxSelected));
             }
+
+            // We can now POST updated Members to API
         }
         
         public void ExportMembers()

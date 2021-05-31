@@ -35,7 +35,8 @@ namespace LoyaltyPrimeWPF
         protected override void Configure()
         {
             _container.Instance(_container)
-                .PerRequest<IMemberEndPoint, MemberEndPoint>();
+                .PerRequest<IMemberEndPoint, MemberEndPoint>()
+                .PerRequest<IMemberAccountEndPoint, MemberAccountEndPoint>();
 
             _container
                 .Singleton<IWindowManager, WindowManager>()
