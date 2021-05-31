@@ -6,8 +6,8 @@ front end project contains FrontEnd UI library and WPF application itself.
 
 ---
 ***NOTE: ***
-For now, I have only implemented GET feature in API (GET all Members) and in the future we can add PUT, POST, DELETE for members and member accounts. I have only updated the models and also mentioned in comments when 
-and where we should add the code to update our database accordingly by calling an API.
+For now, I have only implemented GET feature in API (GET all Members, GET MemberAccounts (Not called in UI)) and in the future we can add PUT, POST, DELETE for members and member accounts. I have only updated the models and also mentioned in comments when 
+and where we should call the API to update our database accordingly.
 
 ## Startup guide
 

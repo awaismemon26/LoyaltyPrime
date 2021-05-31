@@ -136,7 +136,6 @@ namespace LoyaltyPrimeWPF.ViewModels
         public async Task LoadMembers()
         {
             List<MemberModel> list = await _memberEndpoint.GetAllAsync();
-            List<MemberAccountModel> memberAccount = await _memberAccountEndpoint.GetAllAsync();
             Members = new BindingList<MemberModel>(list);
         }
 
