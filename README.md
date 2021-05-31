@@ -38,7 +38,7 @@ The motive for this design is to loosly couple code so that if we want to change
 6. User can export members with filter criteria
 
 ## Application workflow
-1. User Logins
+1. User Login
 2. Can check all members with accounts and balances
 3. Can add new member
 4. Can add new account for a member

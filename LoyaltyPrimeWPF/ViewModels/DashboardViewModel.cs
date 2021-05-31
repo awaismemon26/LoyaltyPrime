@@ -230,7 +230,7 @@ namespace LoyaltyPrimeWPF.ViewModels
             };
             if(saveFile.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText("Members.json", json);
+                File.WriteAllText(saveFile.FileName, json);
                 System.Windows.MessageBox.Show("File exported!");
             }
         }
