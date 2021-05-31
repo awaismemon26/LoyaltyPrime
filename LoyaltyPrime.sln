@@ -20,7 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{3E40B551-70D3-4B10-8E3B-BD73A83131A0}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Pictures\StartupProjects.png = ..\..\..\..\Pictures\StartupProjects.png
+		Images\MemberRegister01.png = Images\MemberRegister01.png
+		Images\MemberRegister02.png = Images\MemberRegister02.png
+		Images\MemberRegister03.png = Images\MemberRegister03.png
+		Images\StartupProjects.png = Images\StartupProjects.png
+		Images\UI.png = Images\UI.png
 	EndProjectSection
 EndProject
 Global
@@ -52,9 +56,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{3E40B551-70D3-4B10-8E3B-BD73A83131A0} = {1D1DCA1C-10EF-4B89-B924-5B52F736C5B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F178A98-698C-4D7C-8268-F6388273E09E}
